@@ -4,8 +4,8 @@ library(dlpyr)
 temp <- tempfile()
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-download.file(fileURL, temp)
-data <- read.table(unz(temp, "household_power_consumption.txt"), sep=";", header=TRUE, as.is = TRUE)
+download.file(fileURL, "temp.zip")
+data <- read.table(unz("temp.zip", "household_power_consumption.txt"), sep=";", header=TRUE, as.is = TRUE)
 unlink(temp)
 
 data <- data %>% filter(dmy(Date) == ymd("2007-02-01") | dmy(Date) == ymd("2007-02-02"))
