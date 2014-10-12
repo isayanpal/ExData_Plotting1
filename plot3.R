@@ -1,14 +1,14 @@
-library(dlpyr)
+library(dplyr)
 
 temp <- tempfile()
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-download.file(fileURL, "temp.zip")
+download.file(fileURL, "temp.zip", method = "curl")
 data <- read.table(unz("temp.zip", "household_power_consumption.txt"), sep=";", header=TRUE, as.is = TRUE)
 unlink(temp)
 
 data <- data %>% filter(dmy(Date) == ymd("2007-02-01") | dmy(Date) == ymd("2007-02-02"))
-data <- data %>% mutate(Sub_metering_1 = as.numeric(Sub_metering_1), Sub_metering_2 = as.numeric(Sub_metering_2), Sub_metering_3 = as.numeric(Sub_metering_3))
+data <- data %>% mutate(Sub_metering_1 = as.numeric(Sub_metering_1), Sub_metering_2 = as.numeric(Sub_metering_2))
 
 datetime <- strptime(paste(data$Date, data$Time), format = "%d/%m/%Y %H:%M:%S")
 

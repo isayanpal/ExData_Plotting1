@@ -1,9 +1,9 @@
-library(dlpyr)
+library(dplyr)
 
 temp <- tempfile()
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-download.file(fileURL, "temp.zip")
+download.file(fileURL, "temp.zip", method = "curl")
 data <- read.table(unz("temp.zip", "household_power_consumption.txt"), sep=";", header=TRUE, as.is = TRUE)
 unlink(temp)
 
