@@ -1,4 +1,3 @@
-library(lubridate)
 library(dlpyr)
 
 temp <- tempfile()
@@ -11,6 +10,8 @@ unlink(temp)
 data <- data %>% filter(dmy(Date) == ymd("2007-02-01") | dmy(Date) == ymd("2007-02-02"))
 data <- data %>% mutate(Global_active_power = as.numeric(Global_active_power))
 
-png(filename = "plot1.png")
-hist(data$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power")
+datetime <- strptime(paste(data$Date, data$Time), format = "%d/%m/%Y %H:%M:%S")
+
+png(filename = "plot2.png")
+plot(datetime, tmp$Global_active_power, type = "l", ylab = "Global Active Pwer (kilowatts)", xlab = "")
 dev.off()
